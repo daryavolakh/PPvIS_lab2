@@ -1,49 +1,24 @@
+
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import controller.*;
+
 import java.util.*;
 
-/*public class MainClass {
-	public static void main(String args[]) {
-		MainWindow frame = new MainWindow();
-	}
-
-}*/
+import model.*;
+import view.*;
 
 public class MainClass {
 	public static void main(String args[])
 	{
+		StudentDataBase model = new StudentDataBase();
+		MainWindow view = new MainWindow();
 		Controller controller = new Controller();
-		controller.execute();
+		view.Show();
+		//controller.execute();
+		//mainWindow.show()
 	}	
-}
-
-class Student {
-	String name = "Piu";
-	public String getName()
-	{
-		return name;
-	}	
-}
-
-class Model {
-	public Student getStudent() {
-		return new Student();
-	}
-} 
-
-class View {
-	public void ShowStudent(Student student) 
-	{
-		System.out.println("Student: " + student.getName());
-	}
-}
-
-class Controller {
-	Model model = new Model();
-	View view = new View();
-	void execute() {
-		Student student = model.getStudent();
-		view.ShowStudent(student);
-	}
 }
