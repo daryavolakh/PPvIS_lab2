@@ -70,7 +70,7 @@ public class MainWindow {
 		frame.add(radioSD3);
 		frame.add(radioSD4);
 		
-		buttAdd.addActionListener(new ActionListener() {
+	/*	buttAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
 				if (radioAdd1.isSelected() == true) {
@@ -87,11 +87,11 @@ public class MainWindow {
 					int count = model.getRowCount();
 					Object value = input.getText();
 					model.setValueAt(value, count - 1, 1);
-					/*
+					
 					 * Vector<String> curRow = new Vector<String>(); if (input.getText().equals(""))
 					 * JOptionPane.showMessageDialog(null, "Empty line!"); else {
 					 * curRow.add(input.getText()); model.addRow(curRow); }
-					 */
+					 
 				}
 
 				else if (radioAdd3.isSelected() == true) {
@@ -131,10 +131,10 @@ public class MainWindow {
 				 * (value.equals("")) { Object value2 =
 				 * input.getText();//model.getValueAt(selectedRow[0], 0);
 				 * model.setValueAt(value2,selectedRow[0],0); } input.setText(null);
-				 */
+				 
 			}
 		});
-
+*/
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 	}
