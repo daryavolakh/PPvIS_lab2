@@ -8,20 +8,20 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class Student {
-	String name ;
-	String adress;
-	int familyMembers;
-	int area;
-	int areaPerPerson;
+	public String name ;
+	public String adress;
+	public int familyMembers;
+	public int area;
+	public int areaPerPerson;
+	
 	public String getName()
 	{
 		return name;
 	}
 	
-	public String setName(String newName)
+	public void setName(String name)
 	{
-		name = newName;
-		return name;
+		this.name = name;
 	}
 	
 	public String getAdress()
@@ -29,10 +29,9 @@ public class Student {
 		return adress;
 	}
 	
-	public String setAdress(String newAdress)
+	public void setAdress(String adress)
 	{
-		adress = newAdress;
-		return adress;
+		this.adress = adress;
 	}
 	
 	public int getFamilyMembers()
@@ -40,9 +39,28 @@ public class Student {
 		return familyMembers;
 	}
 	
-	public int setFamilyMembers(int newFamilyMembers)
+	public void setFamilyMembers(int familyMembers)
 	{
-		familyMembers = newFamilyMembers;
-		return familyMembers;
+		this.familyMembers = familyMembers;
+	}
+	
+	public int getArea()
+	{
+		return area;
+	}
+	
+	public void setArea(int area)
+	{
+		this.area = area;
+	}
+	
+	public int getAreaPerPerson()
+	{
+		return areaPerPerson;
+	}
+	
+	public void setAreaPerPerson(int areaPerPerson)
+	{
+		this.areaPerPerson = areaPerPerson;
 	}
 }

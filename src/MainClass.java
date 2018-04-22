@@ -14,9 +14,10 @@ import view.*;
 public class MainClass {
 	public static void main(String args[])
 	{
-		StudentDataBase model = new StudentDataBase();
 		MainWindow view = new MainWindow();
-		Controller controller = new Controller();
+		//StudentDataBase model = new StudentDataBase();
+		
+		//Controller controller = new Controller();
 		view.Show();
 		//controller.execute();
 		//mainWindow.show()
