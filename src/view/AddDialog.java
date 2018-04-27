@@ -1,6 +1,7 @@
 package view;
 import java.awt.*;
 import model.*;
+import controller.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
@@ -9,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class AddDialog {
-MainWindow parent;
+	
 public JDialog dialog = new JDialog();
 public JButton buttonAdd = new JButton("OK");
 public JTextField input1 = new JTextField("ФИО: ");
@@ -17,10 +18,14 @@ public JTextField input2 = new JTextField("Адрес: ");
 public JTextField input3 = new JTextField("Кол-во членов семьи: ");
 public JTextField input4 = new JTextField("Жилая площадь: ");
 public JTextField input5 = new JTextField("Жилая площадь на человека: ");	
-//public MainWindow parent = new MainWindow();
-	public AddDialog(MainWindow parent,boolean modal)
+private MainWindow mainWindow = new MainWindow();
+public Controller controller = new Controller();
+
+	public AddDialog(MainWindow mainWindow, Controller controller)
 	{	
-		this.parent = parent;
+		//this.parent = parent;
+		this.mainWindow = mainWindow;
+		this.controller = controller;
 		dialog.setTitle("Information");
 		dialog.setSize(310, 350);
 		dialog.setLayout(null);
@@ -41,12 +46,18 @@ public JTextField input5 = new JTextField("Жилая площадь на человека: ");
 		dialog.add(buttonAdd);
 	}
 	
-	public void SetInfo(Student student, StudentDataBase StDB)
+	public void setInfo()
 	{
 		buttonAdd.addActionListener(new ActionListener() 
 		{
+
 			public void actionPerformed(ActionEvent event) 
 			{
+				
+				//Создать студента на основе введедных данных в диалоге
+				Student student = new Student();
+				
+				//добавить в модель при помощи контроллера				
 				student.name = input1.getText();
 				student.adress = input2.getText();
 				String famMem = input3.getText();
@@ -55,18 +66,21 @@ public JTextField input5 = new JTextField("Жилая площадь на человека: ");
 				student.area = Integer.parseInt(tempArea);
 				String tempAreaPerPerson = input5.getText();
 				student.areaPerPerson = Integer.parseInt(tempAreaPerPerson);
+				System.out.println(student.name + " " + student.adress + " " + student.familyMembers);
 				
-				StDB.setStudent(student);
-				System.out.println("LOOK ->"+ StDB.getStudents());
-				parent.update();
+				controller.setStudent(student);
 				
+				//сказать главному окну обновиться
+				mainWindow.update(controller);
+								
 				dialog.setVisible(false);
 			}
 		}
 	);
-	}
+}
 	
-	public void Show()
+	
+	public void show()
 	{
 		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);

@@ -34,4 +34,14 @@ public class StudentDataBase {
 		AllStudents.add(OneStudent);	
 		System.out.println(AllStudents);
 	}
+	
+	public void deleteStudent(Vector student)
+	{
+		System.out.println("I AM HERE ->" + student);
+		
+		AllStudents.remove(student);
+		
+		System.out.println("LOOK HERE ->" + student);
+		System.out.println(AllStudents);
+	}
 }

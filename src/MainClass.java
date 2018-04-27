@@ -18,7 +18,7 @@ public class MainClass {
 		//StudentDataBase model = new StudentDataBase();
 		
 		//Controller controller = new Controller();
-		view.Show();
+		view.show();
 		//controller.execute();
 		//mainWindow.show()
 	}	
