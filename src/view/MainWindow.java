@@ -74,6 +74,7 @@ public class MainWindow {
 			{
 				//Student student = new Student();
 				DeleteDialog dialog = new DeleteDialog(MainWindow.this, controller);
+				
 				dialog.show();
 				dialog.delStud();
 			}
@@ -82,21 +83,31 @@ public class MainWindow {
 	}
 	
 	
-	public void update(Controller controller)
+	public void update()
 	{
-		//this.controller = controller;
 		System.out.println("GET");
 		for( int index = model.getRowCount() - 1; index >= 0; index-- ) 
 		{
 			model.removeRow(index);
 		}
 		
-		Vector<Vector> students = controller.getStudents();
-		System.out.println("LOOK ->"+ controller.getStudents());
+		
+		ArrayList students = controller.getStudents();
+		System.out.println("LOOK UPDATE ->"+ controller.getStudents());
 		
 		for (int index = 0; index < students.size(); index++)
 		{
-			model.addRow(students.get(index));
+			Student student = new Student();
+			student = controller.getOneStudent(index);
+			
+			Vector row = new Vector();
+			row.add(student.name);
+			row.add(student.adress);
+			row.add(student.familyMembers);
+			row.add(student.area);
+			row.add(student.areaPerPerson);
+			
+			model.addRow(row);
 		}
 	}
 	

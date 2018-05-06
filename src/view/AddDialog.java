@@ -71,7 +71,7 @@ public Controller controller = new Controller();
 				controller.setStudent(student);
 				
 				//сказать главному окну обновиться
-				mainWindow.update(controller);
+				mainWindow.update();
 								
 				dialog.setVisible(false);
 			}

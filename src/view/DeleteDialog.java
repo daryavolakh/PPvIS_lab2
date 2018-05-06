@@ -12,14 +12,14 @@ public class DeleteDialog {
 //MainWindow parent;
 public JDialog dialog = new JDialog();
 public JButton buttonDel = new JButton("OK");
-private MainWindow mainWindow = new MainWindow();
+private MainWindow mainwindow = new MainWindow();
 public Controller controller = new Controller();
 public Vector items = new Vector();
 public JComboBox comboBox = new JComboBox(items);
 
-	public DeleteDialog(MainWindow mainWindow, Controller controller)
+	public DeleteDialog(MainWindow mainwindow, Controller controller)
 	{				
-		this.mainWindow = mainWindow;
+		this.mainwindow = mainwindow;
 		this.controller = controller;
 		
 		dialog.setTitle("Delete information");
@@ -27,9 +27,9 @@ public JComboBox comboBox = new JComboBox(items);
 		dialog.setLayout(null);
 		dialog.setLocationByPlatform(true);			
 		
-		items.add("по числу членов семьи и ФИО");
-		items.add("о числу членов семьи и занимаемой S");
-		items.add("фамилии и занимаемой S");
+		items.add("по фамилии и числу членов семьи");
+		items.add("по числу членов семьи и занимаемой S");
+		items.add("по фамилии и занимаемой S");
 		items.add("вывести всех студентов, чья S на человека меньше/больше заданного предела");
 						
 		comboBox.setBounds(25, 35, 245, 30);
@@ -48,29 +48,38 @@ public JComboBox comboBox = new JComboBox(items);
 			{
 				if (comboBox.getSelectedItem() == items.get(0))
 				{
-					DeleteStudentsDialog delete = new DeleteStudentsDialog(controller);
-					delete.show();
-					
-					delete.delStudents();					
+					DeleteStudentsDialog delete = new DeleteStudentsDialog(mainwindow,controller);
+					delete.show();					
+					delete.delByNameAndNumber();
+					dialog.setVisible(false);
 				}
 				
 				if (comboBox.getSelectedItem() == items.get(1))
 				{
-					System.out.println("2");
+					DeleteStudentsDialog delete = new DeleteStudentsDialog(mainwindow,controller);
+					delete.addTextFields();
+					delete.show();					
+					delete.delByNumberAndArea();
+					dialog.setVisible(false);
 				}
 				
 				if (comboBox.getSelectedItem() == items.get(2))
 				{
-					System.out.println("3");
+					DeleteStudentsDialog delete = new DeleteStudentsDialog(mainwindow,controller);
+					//delete.delAddTextFields();
+					delete.show();
+					delete.delByNameAndArea();
+					dialog.setVisible(false);
 				}
 				
 				if (comboBox.getSelectedItem() == items.get(3))
 				{
-					System.out.println("4");
-				}
-
-				mainWindow.update(controller);
-				dialog.setVisible(false);
+					DeleteStudentsDialog delete = new DeleteStudentsDialog(mainwindow,controller);
+					delete.delTextFields();
+					delete.show();	
+					delete.delByAreaPerPerson();
+					dialog.setVisible(false);
+				}				
 			}
 		});
 	}

@@ -13,9 +13,14 @@ import view.*;
 public class Controller {
 	public StudentDataBase stdb = new StudentDataBase();
 	
-	public Vector getStudents() 
+	public ArrayList getStudents() 
 	{
 		return stdb.getStudents();
+	}
+	
+	public Student getOneStudent(int index) 
+	{
+		return stdb.getOneStudent(index);
 	}
 	
 	public void setStudent(Student student)    //закинуть в StudentDatBase!!!!!!!!!
@@ -23,9 +28,9 @@ public class Controller {
 		stdb.setStudent(student);
 	}
 	
-	public void deleteStudent(Vector student)
+	public void deleteStudent(Student student)
 	{
-		System.out.println("NOT LOL " + student);
+		System.out.println("controller + delete " + student);
 		stdb.deleteStudent(student);
 	}
 }
