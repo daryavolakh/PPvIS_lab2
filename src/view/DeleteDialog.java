@@ -57,7 +57,7 @@ public JComboBox comboBox = new JComboBox(items);
 				if (comboBox.getSelectedItem() == items.get(1))
 				{
 					DeleteStudentsDialog delete = new DeleteStudentsDialog(mainwindow,controller);
-					delete.addTextFields();
+					delete.delAddTextFields();
 					delete.show();					
 					delete.delByNumberAndArea();
 					dialog.setVisible(false);

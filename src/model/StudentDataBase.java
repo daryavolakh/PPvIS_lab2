@@ -24,14 +24,10 @@ public class StudentDataBase {
 	public void setStudent(Student student) 
 	{
 		AllStudents.add(student);
-		//System.out.println(AllStudents);
 	}
 	
 	public void deleteStudent(Student student)
 	{
-		System.out.println("I AM HERE ->" + student);
-		
 		AllStudents.remove(student);
-		System.out.println(AllStudents);
 	}
 }

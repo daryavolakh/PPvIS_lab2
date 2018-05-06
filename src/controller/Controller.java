@@ -23,7 +23,7 @@ public class Controller {
 		return stdb.getOneStudent(index);
 	}
 	
-	public void setStudent(Student student)    //закинуть в StudentDatBase!!!!!!!!!
+	public void setStudent(Student student)    
 	{
 		stdb.setStudent(student);
 	}

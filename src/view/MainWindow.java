@@ -3,6 +3,8 @@ import model.*;
 import controller.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.File;
 import javax.swing.*;
 import java.util.*;
 import java.util.Vector;
@@ -17,7 +19,6 @@ public class MainWindow {
 	public Controller controller = new Controller();
 	
 	public MainWindow() {
-		
 		frame.setTitle("Lab 2");
 		frame.setSize(450, 520);
 		frame.setLayout(null);
@@ -53,10 +54,6 @@ public class MainWindow {
 		frame.add(scrollPane);
 		frame.getContentPane().add(scrollPane);
 		
-		Vector row = new Vector();
-		row.add("HELLO");
-		model.addRow(row);
-		
 		buttAdd.addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent event) 
@@ -68,15 +65,43 @@ public class MainWindow {
 			}
 		);
 		
+		
 		buttDelete.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent event) 
 			{
-				//Student student = new Student();
 				DeleteDialog dialog = new DeleteDialog(MainWindow.this, controller);
 				
 				dialog.show();
 				dialog.delStud();
+			}
+		}
+	);
+		
+		buttImport.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent event) 
+			{
+				try {
+					ReadingFromAFile read = new ReadingFromAFile(MainWindow.this, controller);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	);
+		
+		buttSave.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent event) 
+			{
+				try {
+					WriteToFile write = new WriteToFile(controller);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	);
@@ -91,16 +116,13 @@ public class MainWindow {
 			model.removeRow(index);
 		}
 		
-		
-		ArrayList students = controller.getStudents();
-		System.out.println("LOOK UPDATE ->"+ controller.getStudents());
-		
-		for (int index = 0; index < students.size(); index++)
+		for (int index = 0; index < controller.getStudents().size(); index++)
 		{
 			Student student = new Student();
 			student = controller.getOneStudent(index);
 			
 			Vector row = new Vector();
+			
 			row.add(student.name);
 			row.add(student.adress);
 			row.add(student.familyMembers);

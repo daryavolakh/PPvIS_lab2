@@ -90,17 +90,13 @@ public class DeleteStudentsDialog {
 				{
 					public void actionPerformed(ActionEvent event) 
 					{					
-						System.out.println("LOL ");
 						
-						//String tempNumber = in1.getText();
-						int number = Integer.parseInt(in1.getText());
-						
-						//String tempLow = in3.getText();
-						int low = Integer.parseInt(in3.getText());
-						
-						//String tempHigh = in4.getText();
+						int number = Integer.parseInt(in1.getText());						
+						int low = Integer.parseInt(in3.getText());						
 						int high = Integer.parseInt(in4.getText());
+						
 						Student student;
+						
 						for (int index = 0; index < controller.getStudents().size(); index++)
 						{
 							student = controller.getOneStudent(index);	
@@ -119,17 +115,11 @@ public class DeleteStudentsDialog {
 				buttonDel.addActionListener(new ActionListener() 
 				{
 					public void actionPerformed(ActionEvent event) 
-					{					
-						System.out.println("LOL ");
+					{	
 						Student student;
 
-						//String tempNumber = in1.getText();
 						int number = Integer.parseInt(in1.getText());
-						
-						//String tempLow = in3.getText();
 						int low = Integer.parseInt(in3.getText());
-						
-						//String tempHigh = in4.getText();
 						int high = Integer.parseInt(in4.getText());
 						
 						for (int index = 0; index < controller.getStudents().size(); index++)
