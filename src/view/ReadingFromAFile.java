@@ -26,33 +26,37 @@ public class ReadingFromAFile {
 	{
 		this.mainWindow = mainWindow;
 		this.controller= controller;
-		
-		File file = new File("fileForReading.xml");
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.parse(file);
-		
-		document.getDocumentElement().normalize();
-
-		NodeList studNodeList = document.getElementsByTagName("student");
-		
-		for (int index = 0; index < studNodeList.getLength(); index++)
+		JFileChooser fileopen = new JFileChooser();
+		int ret = fileopen.showDialog(null, "Открыть файл");                
+		if (ret == JFileChooser.APPROVE_OPTION)
 		{
-			Student student = new Student();
-			Node node = studNodeList.item(index);
-			if (Node.ELEMENT_NODE == studNodeList.item(index).getNodeType())
-			{
-				Element element = (Element) studNodeList.item(index);
-				
-				student.setName(element.getElementsByTagName("name").item(0).getTextContent());
-				student.setAdress(element.getElementsByTagName("adress").item(0).getTextContent());
-				student.setFamilyMembers(Integer.valueOf(element.getElementsByTagName("familyMembers").item(0).getTextContent()));
-				student.setArea(Integer.valueOf(element.getElementsByTagName("area").item(0).getTextContent()));
-				student.setAreaPerPerson(Integer.valueOf(element.getElementsByTagName("areaPerPerson").item(0).getTextContent()));
+			File file = fileopen.getSelectedFile();//new File("fileForReading.xml");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(file);
 			
-				controller.setStudent(student);
-			}				
+			document.getDocumentElement().normalize();
+	
+			NodeList studNodeList = document.getElementsByTagName("student");
+			
+			for (int index = 0; index < studNodeList.getLength(); index++)
+			{
+				Student student = new Student();
+				Node node = studNodeList.item(index);
+				if (Node.ELEMENT_NODE == studNodeList.item(index).getNodeType())
+				{
+					Element element = (Element) studNodeList.item(index);
+					
+					student.setName(element.getElementsByTagName("name").item(0).getTextContent());
+					student.setAdress(element.getElementsByTagName("adress").item(0).getTextContent());
+					student.setFamilyMembers(Integer.valueOf(element.getElementsByTagName("familyMembers").item(0).getTextContent()));
+					student.setArea(Integer.valueOf(element.getElementsByTagName("area").item(0).getTextContent()));
+					student.setAreaPerPerson(Integer.valueOf(element.getElementsByTagName("areaPerPerson").item(0).getTextContent()));
+				
+					controller.setStudent(student);
+				}				
+			}
+			mainWindow.update();
 		}
-		mainWindow.update();
 	}
 }

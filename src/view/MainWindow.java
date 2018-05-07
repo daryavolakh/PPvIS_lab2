@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.xml.sax.SAXException;
 
@@ -102,7 +104,7 @@ public class MainWindow {
 			{
 				try {
 					WriteToFile write = new WriteToFile(controller);
-				} catch (FileNotFoundException e) {
+				} catch (FileNotFoundException | TransformerFactoryConfigurationError | TransformerException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
