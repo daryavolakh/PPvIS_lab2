@@ -30,7 +30,6 @@ public class Controller {
 	
 	public void deleteStudent(Student student)
 	{
-		System.out.println("controller + delete " + student);
 		stdb.deleteStudent(student);
 	}
 }

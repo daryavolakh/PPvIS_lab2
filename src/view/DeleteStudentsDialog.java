@@ -18,6 +18,7 @@ public class DeleteStudentsDialog {
 	public JTextField in3 = new JTextField();
 	public JTextField in4 = new JTextField();
 	public MainWindow mainwindow = new MainWindow();
+	public Vector deleted = new Vector();
 
 			public DeleteStudentsDialog(MainWindow mainwindow, Controller controller)
 			{		
@@ -52,10 +53,21 @@ public class DeleteStudentsDialog {
 								
 							if (in1.getText().equals(student.name) && number == student.familyMembers)     
 							{
+								deleted.add(student.name);
 								controller.deleteStudent(student);								
 							}
 						}
-						mainwindow.update();
+						if (deleted.isEmpty())
+						{
+							JOptionPane.showMessageDialog(null, "Студенты не найдены :(");
+						}
+						
+						else 
+						{
+							showDeleted();
+							mainwindow.update();
+						}
+						deleted.clear();
 					}
 				});					
 			}
@@ -74,11 +86,21 @@ public class DeleteStudentsDialog {
 								
 							if (in1.getText().equals(student.name) && number == student.area)     
 							{
-								controller.deleteStudent(student);
-								
+								deleted.add(student.name);
+								controller.deleteStudent(student);								
 							}
 						}
-						mainwindow.update();
+						if (deleted.isEmpty())
+						{
+							JOptionPane.showMessageDialog(null, "Студенты не найдены :(");
+						}
+						
+						else 
+						{
+							showDeleted();
+							mainwindow.update();
+						}
+						deleted.clear();
 					}
 				});	
 				
@@ -102,10 +124,21 @@ public class DeleteStudentsDialog {
 							student = controller.getOneStudent(index);	
 							if (student.familyMembers == number && student.area >= low && student.area <= high)      
 							{
+								deleted.add(student.name);
 								controller.deleteStudent(student);
 							}
 						}
-						mainwindow.update();
+						if (deleted.isEmpty())
+						{
+							JOptionPane.showMessageDialog(null, "Студенты не найдены :(");
+						}
+						
+						else 
+						{
+							showDeleted();
+							mainwindow.update();
+						}
+						deleted.clear();
 					}
 				});					
 			}
@@ -118,21 +151,49 @@ public class DeleteStudentsDialog {
 					{	
 						Student student;
 
-						int number = Integer.parseInt(in1.getText());
+						//int number = Integer.parseInt(in1.getText());
 						int low = Integer.parseInt(in3.getText());
 						int high = Integer.parseInt(in4.getText());
 						
 						for (int index = 0; index < controller.getStudents().size(); index++)
 						{
 							student = controller.getOneStudent(index);	
-							if (student.familyMembers == number && student.area >= low && student.area <= high)      
+							if (student.areaPerPerson >= low && student.areaPerPerson <= high)      
 							{
+								deleted.add(student.name);
 								controller.deleteStudent(student);
 							}
 						}
-						mainwindow.update();
+						
+						if (deleted.isEmpty())
+						{
+							JOptionPane.showMessageDialog(null, "Студенты не найдены :(");
+						}
+						
+						else 
+						{
+							showDeleted();
+							mainwindow.update();
+						}
+						deleted.clear();
 					}
 				});					
+			}
+			
+			public void showDeleted()
+			{
+				/*String delStudents = "";
+				for (int index = 0; index < deleted.size(); index ++)
+				{
+					if (index == deleted.size() - 1)
+						delStudents += deleted.get(index) + ".";
+					else 
+					{
+						delStudents += deleted.get(index) + ",";
+					}
+				}
+				System.out.println(deleted + "STRING ->" + delStudents);*/
+				JOptionPane.showMessageDialog(null, "Удалено студентов: " + deleted.size());
 			}
 			
 			public void addTextFields()

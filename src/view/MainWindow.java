@@ -110,7 +110,6 @@ public class MainWindow {
 	
 	public void update()
 	{
-		System.out.println("GET");
 		for( int index = model.getRowCount() - 1; index >= 0; index-- ) 
 		{
 			model.removeRow(index);
