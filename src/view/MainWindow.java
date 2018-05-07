@@ -4,11 +4,15 @@ import controller.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.File;
 import javax.swing.*;
 import java.util.*;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 public class MainWindow {
 	public JFrame frame = new JFrame();
@@ -84,7 +88,7 @@ public class MainWindow {
 			{
 				try {
 					ReadingFromAFile read = new ReadingFromAFile(MainWindow.this, controller);
-				} catch (FileNotFoundException e) {
+				} catch (ParserConfigurationException | SAXException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

@@ -1,43 +1,58 @@
 package view;
 import java.awt.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 import java.awt.event.*;
 import javax.swing.*;
 import controller.*;
 import java.util.*;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import model.*;
 
 public class ReadingFromAFile {
 	MainWindow mainWindow = new MainWindow();
 	Controller controller = new Controller();
-	public ReadingFromAFile(MainWindow mainWindow, Controller controller) throws FileNotFoundException
+	
+	public ReadingFromAFile(MainWindow mainWindow, Controller controller) throws ParserConfigurationException, SAXException, IOException
 	{
 		this.mainWindow = mainWindow;
-		this.controller = controller;
+		this.controller= controller;
 		
-		File file = new File("readStudents.txt"); 
-		Scanner scanner = new Scanner(file);
+		File file = new File("fileForReading.xml");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(file);
 		
-		while (scanner.hasNextLine())
+		document.getDocumentElement().normalize();
+
+		NodeList studNodeList = document.getElementsByTagName("student");
+		
+		for (int index = 0; index < studNodeList.getLength(); index++)
 		{
-			String line = scanner.nextLine();
-			String[] info = line.split(" ");
-			
 			Student student = new Student();
+			Node node = studNodeList.item(index);
+			if (Node.ELEMENT_NODE == studNodeList.item(index).getNodeType())
+			{
+				Element element = (Element) studNodeList.item(index);
+				
+				student.setName(element.getElementsByTagName("name").item(0).getTextContent());
+				student.setAdress(element.getElementsByTagName("adress").item(0).getTextContent());
+				student.setFamilyMembers(Integer.valueOf(element.getElementsByTagName("familyMembers").item(0).getTextContent()));
+				student.setArea(Integer.valueOf(element.getElementsByTagName("area").item(0).getTextContent()));
+				student.setAreaPerPerson(Integer.valueOf(element.getElementsByTagName("areaPerPerson").item(0).getTextContent()));
 			
-			student.name = info[0];
-			student.adress = info[1];
-			student.familyMembers = Integer.parseInt(info[2]);
-			student.area = Integer.parseInt(info[3]);
-			student.areaPerPerson = Integer.parseInt(info[4]);
-			
-			controller.setStudent(student);
+				controller.setStudent(student);
+			}				
 		}
-		
-		scanner.close();
 		mainWindow.update();
 	}
-
 }
