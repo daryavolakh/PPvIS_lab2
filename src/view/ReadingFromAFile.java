@@ -27,6 +27,7 @@ public class ReadingFromAFile {
 		this.mainWindow = mainWindow;
 		this.controller= controller;
 		JFileChooser fileopen = new JFileChooser();
+		fileopen.setCurrentDirectory(new File("D:\\Java\\Lab2"));
 		int ret = fileopen.showDialog(null, "Открыть файл");                
 		if (ret == JFileChooser.APPROVE_OPTION)
 		{

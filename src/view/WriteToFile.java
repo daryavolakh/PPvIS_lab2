@@ -29,23 +29,30 @@ import model.Student;
 public class WriteToFile {
 	Controller controller = new Controller();
 	
-	public WriteToFile(Controller controller) throws TransformerFactoryConfigurationError, FileNotFoundException, TransformerException
+	public WriteToFile(Controller controller) throws ParserConfigurationException, TransformerException
 	{
 		this.controller = controller;
 		
-		JFileChooser fileopen = new JFileChooser();
-		int ret = fileopen.showDialog(null, "Открыть файл");                
+		JFileChooser fileSave = new JFileChooser();
+		fileSave.setCurrentDirectory(new File("D:\\Java\\Lab2"));
+		int ret = fileSave.showSaveDialog(null);                
 		if (ret == JFileChooser.APPROVE_OPTION)
 		{
-			File file = fileopen.getSelectedFile();
+			File file = fileSave.getSelectedFile();
 
-			DocumentBuilder builder = null;
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.newDocument();
 			
-			Element rootElem = document.createElement("students");
-			
+			Element mainRoot = document.createElement("students");
+			//document.appendChild(mainRoot);
 			for (int index = 0; index < controller.getStudents().size(); index ++)
 			{
+
+				Element rootElem = document.createElement("student");
+				mainRoot.appendChild(rootElem);
+				
+				System.out.println("WRITE");
 				Student student =  controller.getOneStudent(index);
 				
 				Element nameTitle = document.createElement("name");
@@ -70,18 +77,21 @@ public class WriteToFile {
 				
 				rootElem.appendChild(areaTitle);
 				
-				Element areaPerPersonTitle = document.createElement("areaPerPeson");
+				Element areaPerPersonTitle = document.createElement("areaPerPerson");
 				String tempAreaPer = "" + student.areaPerPerson;
 				areaPerPersonTitle.appendChild(document.createTextNode(tempAreaPer));
 				
 				rootElem.appendChild(areaPerPersonTitle);
 			}
 			
-			document.appendChild(rootElem);
+			document.appendChild(mainRoot);
+			document.getDocumentElement().normalize();
 			
-			Transformer trans = TransformerFactory.newInstance().newTransformer();
-			trans.transform(new DOMSource(document), new StreamResult(new FileOutputStream(file)));
-		}
+			TransformerFactory transFact = TransformerFactory.newInstance();
+			Transformer transformer = transFact.newTransformer();
+			DOMSource source = new DOMSource(document);
+			StreamResult result = new StreamResult(file);
+			transformer.transform(source, result);}
 	}
 	
 	/*public WriteToFile(Controller controller) throws FileNotFoundException

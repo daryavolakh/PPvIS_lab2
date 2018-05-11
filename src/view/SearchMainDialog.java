@@ -37,7 +37,7 @@ public class SearchMainDialog
 			dialog.add(buttonSearch);					
 		}
 		
-		public void delStud()
+		public void searchStud()
 		{
 			buttonSearch.addActionListener(new ActionListener() 
 			{
@@ -45,30 +45,35 @@ public class SearchMainDialog
 				{
 					if (comboBox.getSelectedItem() == items.get(0))
 					{
-						SearchWindow search = new SearchWindow(controller);
+						SearchStudentsDialog search = new SearchStudentsDialog(controller);
 						search.show();	
+						search.byNameAndNumber();
 						dialog.setVisible(false);
 					}
 					
 					if (comboBox.getSelectedItem() == items.get(1))
 					{
-						SearchWindow search = new SearchWindow(controller);
-						
+						SearchStudentsDialog search = new SearchStudentsDialog(controller);
+						search.delAddTextFields();
 						search.show();	
+						search.byNumberAndArea();
 						dialog.setVisible(false);
 					}
 					
 					if (comboBox.getSelectedItem() == items.get(2))
 					{
-						SearchWindow search = new SearchWindow(controller);
+						SearchStudentsDialog search = new SearchStudentsDialog(controller);
 						search.show();
+						search.byNameAndArea();
 						dialog.setVisible(false);
 					}
 					
 					if (comboBox.getSelectedItem() == items.get(3))
 					{
-						SearchWindow search = new SearchWindow(controller);
+						SearchStudentsDialog search = new SearchStudentsDialog(controller);
 						search.show();	
+						search.delTextFields();
+						search.byAreaPerPerson();
 						dialog.setVisible(false);
 					}				
 				}

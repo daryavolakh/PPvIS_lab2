@@ -54,7 +54,8 @@ public class DeleteStudentsDialog {
 							if (in1.getText().equals(student.name) && number == student.familyMembers)     
 							{
 								deleted.add(student.name);
-								controller.deleteStudent(student);								
+								controller.deleteStudent(student);	
+								index--;
 							}
 						}
 						if (deleted.isEmpty())
@@ -87,7 +88,8 @@ public class DeleteStudentsDialog {
 							if (in1.getText().equals(student.name) && number == student.area)     
 							{
 								deleted.add(student.name);
-								controller.deleteStudent(student);								
+								controller.deleteStudent(student);		
+								index--;
 							}
 						}
 						if (deleted.isEmpty())
@@ -126,6 +128,7 @@ public class DeleteStudentsDialog {
 							{
 								deleted.add(student.name);
 								controller.deleteStudent(student);
+								index--;
 							}
 						}
 						if (deleted.isEmpty())
@@ -162,6 +165,7 @@ public class DeleteStudentsDialog {
 							{
 								deleted.add(student.name);
 								controller.deleteStudent(student);
+								index--;
 							}
 						}
 						
@@ -182,28 +186,17 @@ public class DeleteStudentsDialog {
 			
 			public void showDeleted()
 			{
-				/*String delStudents = "";
-				for (int index = 0; index < deleted.size(); index ++)
-				{
-					if (index == deleted.size() - 1)
-						delStudents += deleted.get(index) + ".";
-					else 
-					{
-						delStudents += deleted.get(index) + ",";
-					}
-				}
-				System.out.println(deleted + "STRING ->" + delStudents);*/
 				JOptionPane.showMessageDialog(null, "Удалено студентов: " + deleted.size());
 			}
 			
-			public void addTextFields()
+			/*public void addTextFields()
 			{
 				in3.setBounds(85, 95, 40, 30);
 				in4.setBounds(135, 95, 40, 30);
 				
 				dialog.add(in3);
 				dialog.add(in4);
-			}
+			}*/
 			
 			public void delAddTextFields()
 			{
