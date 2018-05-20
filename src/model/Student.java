@@ -1,66 +1,76 @@
 package model;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
-
 public class Student {
-	public String name ;
-	public String adress;
+	public String surname;
+	public String name;
+	public String town;
+	public String street;
+	public String house;
 	public int familyMembers;
 	public int area;
-	public int areaPerPerson;
-	
-	public String getName()
-	{
+	public double areaPerPerson;
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getName() {
 		return name;
 	}
-	
-	public void setName(String name)
-	{
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getAdress()
-	{
-		return adress;
+
+	public String getTown() {
+		return town;
+	}
+
+	public void setTown(String town) {
+		this.town = town;
 	}
 	
-	public void setAdress(String adress)
-	{
-		this.adress = adress;
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 	
-	public int getFamilyMembers()
-	{
+	public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+		this.house = house;
+	}
+
+	public int getFamilyMembers() {
 		return familyMembers;
 	}
-	
-	public void setFamilyMembers(int familyMembers)
-	{
+
+	public void setFamilyMembers(int familyMembers) {
 		this.familyMembers = familyMembers;
 	}
-	
-	public int getArea()
-	{
+
+	public int getArea() {
 		return area;
 	}
-	
-	public void setArea(int area)
-	{
+
+	public void setArea(int area) {
 		this.area = area;
 	}
-	
-	public int getAreaPerPerson()
-	{
+
+	public double getAreaPerPerson() {
 		return areaPerPerson;
 	}
-	
-	public void setAreaPerPerson(int areaPerPerson)
-	{
-		this.areaPerPerson = areaPerPerson;
+
+	public void setAreaPerPerson(double tempAreaPerPersone) {
+		this.areaPerPerson = tempAreaPerPersone;
 	}
 }

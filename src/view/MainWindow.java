@@ -1,67 +1,102 @@
 package view;
-import model.*;
-import controller.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.FileNotFoundException;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.File;
-import javax.swing.*;
-import java.util.*;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.xml.sax.SAXException;
+
+import controller.Controller;
+import model.Student;
 
 public class MainWindow {
 	public JFrame frame = new JFrame();
 	public Controller controller = new Controller();
-	public TableComponent table = new TableComponent(controller);
-	
+	public TableComponent table = new TableComponent(controller, controller.getStudents());
+	public JPanel mainPanel = new JPanel();
+
 	public MainWindow() {
 		frame.setTitle("Lab 2");
-		frame.setSize(590, 700);
+		frame.setSize(700, 670);
 		frame.setLayout(null);
 		frame.setLocationByPlatform(true);
 
-		JPanel mainPanel = new JPanel();
+		
 		JButton buttImport = new JButton("import");
 		JButton buttSave = new JButton("save");
 		JButton buttAdd = new JButton("add");
 		JButton buttSearch = new JButton("search");
-		JButton buttDelete = new JButton("delete");	
-		JToolBar menu = new JToolBar("MENU");
+		JButton buttDelete = new JButton("delete");
+		JToolBar toolbar = new JToolBar("toolbar");
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("MENU");
+		JMenuItem menuAdd = new JMenuItem("add");
+		JMenuItem menuDelete = new JMenuItem("delete");
+		JMenuItem menuSearch = new JMenuItem("search");
+		JMenuItem menuImport = new JMenuItem("import");
+		JMenuItem menuSave = new JMenuItem("save");
+		Font font = new Font("Verdana", Font.PLAIN, 11);		
 		
-		menu.setFloatable(false);
-		menu.setOrientation(SwingConstants.HORIZONTAL);
-		menu.setOrientation(SwingConstants.CENTER);		
+		menuBar.add(menu);
+		
+		menu.setFont(font);
+		menuAdd.setFont(font);
+		menuDelete.setFont(font);
+		menuSearch.setFont(font);
+		menuImport.setFont(font);
+		menuSave.setFont(font);
 
-		JButton menuImport = new JButton("import");
-		JButton menuSave = new JButton("save");
-		JButton menuAdd = new JButton("add");
-		JButton menuSearch = new JButton("search");
-		JButton menuDelete = new JButton("delete");	
-		
+		toolbar.setFloatable(false);
+		toolbar.setOrientation(SwingConstants.HORIZONTAL);
+		toolbar.setOrientation(SwingConstants.CENTER);
+
+		JButton toolbarImport = new JButton("import");
+		JButton toolbarSave = new JButton("save");
+		JButton toolbarAdd = new JButton("add");
+		JButton toolbarSearch = new JButton("search");
+		JButton toolbarDelete = new JButton("delete");
+
 		menu.add(menuAdd);
-		menu.add(menuSearch);
 		menu.add(menuDelete);
+		menu.add(menuSearch);
 		menu.add(menuImport);
 		menu.add(menuSave);
-	
-		buttAdd.setBounds(70, 50, 70, 20);
-		buttSearch.setBounds(145, 50, 80, 20);
-		buttDelete.setBounds(230, 50, 80, 20);
-		buttImport.setBounds(315, 50, 80, 20);
-		buttSave.setBounds(400, 50, 80, 20);
-		menu.setBounds(0,0,224,30);
 		
-		mainPanel.setBounds(40, 90, 490, 500);
-		mainPanel.add(table);
+		menu.addSeparator();
 		
-		frame.add(menu);
+		toolbar.add(toolbarAdd);
+		toolbar.add(toolbarSearch);
+		toolbar.add(toolbarDelete);
+		toolbar.add(toolbarImport);
+		toolbar.add(toolbarSave);
+
+		menu.setBounds(0, 0, 70, 20);
+		buttAdd.setBounds(125, 50, 70, 20);
+		buttSearch.setBounds(200, 50, 80, 20);
+		buttDelete.setBounds(285, 50, 80, 20);
+		buttImport.setBounds(370, 50, 80, 20);
+		buttSave.setBounds(455, 50, 80, 20);
+		toolbar.setBounds(460, 0, 224, 30);
+
+		mainPanel.setBounds(40, 90, 600, 800);
+		mainPanel.add(table);		
+		
+		frame.setJMenuBar(menuBar);
+		
+		frame.add(toolbar);
 		frame.add(buttImport);
 		frame.add(buttSave);
 		frame.add(buttAdd);
@@ -69,154 +104,154 @@ public class MainWindow {
 		frame.add(buttDelete);
 		frame.add(mainPanel);
 
-		buttAdd.addActionListener(new ActionListener() 
-			{
-				public void actionPerformed(ActionEvent event) 
-				{
-					AddDialog dialog = new AddDialog(MainWindow.this, controller);
-					dialog.show();
-					dialog.setInfo();
-				}
+		buttAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				add();
 			}
-		);		
+		});
+
+		buttDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				delete();
+			}
+		});
+
+		buttSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				search();
+			}
+		});
+
+		buttImport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				imp();
+			}
+		});
+
+		buttSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				save();
+			}
+		});
+
+		toolbarAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				add();
+			}
+		});
+
+		toolbarDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				delete();
+			}
+		});
+
+		toolbarSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				search();
+			}
+		});
+
+		toolbarImport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				imp();
+			}
+		});
+
+		toolbarSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				save();
+			}
+
+		});
 		
-		buttDelete.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				DeleteDialog dialog = new DeleteDialog(MainWindow.this, controller);
-				
-				dialog.show();
-				dialog.delStud();
+		menuAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				add();
 			}
-		}
-	);
+		});
 		
-		buttSearch.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				SearchMainDialog dialog = new SearchMainDialog(controller);
-				
-				dialog.show();
-				dialog.searchStud();
+		menuDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				delete();
 			}
-		}
-	);
-		
-		buttImport.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				try {
-					ReadingFromAFile read = new ReadingFromAFile(MainWindow.this, controller);
-				} catch (ParserConfigurationException | SAXException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		});
+
+		menuSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				search();
 			}
-		}
-	);
-				
-		buttSave.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				try {
-					try {
-						WriteToFile write = new WriteToFile(controller);
-					} catch (ParserConfigurationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} catch (TransformerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}						
+		});
+
+		menuImport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				imp();
 			}
-		}
-	);
-		
-		menuAdd.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				AddDialog dialog = new AddDialog(MainWindow.this, controller);
-				dialog.show();
-				dialog.setInfo();
+		});
+
+		menuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				save();
 			}
-		}
-	);
-		
-		menuDelete.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				DeleteDialog dialog = new DeleteDialog(MainWindow.this, controller);
-				
-				dialog.show();
-				dialog.delStud();
-			}
-		}
-	);
-		
-		menuSearch.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				SearchMainDialog dialog = new SearchMainDialog(controller);
-				
-				dialog.show();
-				dialog.searchStud();
-			}
-		}
-	);
-		
-		menuImport.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				try {
-					ReadingFromAFile read = new ReadingFromAFile(MainWindow.this, controller);
-				} catch (ParserConfigurationException | SAXException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	);
-		
-		menuSave.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent event) 
-			{
-				try {
-					try {
-						WriteToFile write = new WriteToFile(controller);
-					} catch (ParserConfigurationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} catch (TransformerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}						
-			}
-		}
-	);
+		});		
 	}
-	
-	
-	public void update()
-	{
-		table.update();
+
+	public void add() {
+		AddDialog dialog = new AddDialog(MainWindow.this, controller);
+		dialog.show();
+		dialog.setInfo();
 	}
-	
-	public void show()
-	{
+
+	public void delete() {
+		Selected selected = new Selected(MainWindow.this, controller, true);
+		selected.searchStud();
+		selected.show();
+	}
+
+	public void search() {
+		Selected selected = new Selected(MainWindow.this, controller, false);
+		selected.searchStud();
+		selected.show();
+	}
+
+	public void imp() {
+		try {
+			ReadingFromAFile read = new ReadingFromAFile(MainWindow.this, controller);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void save() {
+		try {
+			try {
+				WriteToFile write = new WriteToFile(controller);
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void update() {
+		mainPanel.remove(table);
+		frame.remove(mainPanel);
+		JPanel newPanel = new JPanel();
+		TableComponent newTable = new TableComponent(controller, controller.getStudents());
+		newPanel.add(newTable);
+		
+		newPanel.setBounds(40, 90, 600, 800);
+		frame.add(newPanel);
+		newTable.update(controller.getStudents());
+	}
+
+	public void show() {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 	}
-
-
 }

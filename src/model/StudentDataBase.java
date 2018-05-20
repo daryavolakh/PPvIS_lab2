@@ -1,33 +1,25 @@
 package model;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
 import java.util.ArrayList;
-
-import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class StudentDataBase {
-	
-	public ArrayList<Student> AllStudents = new ArrayList<Student>();
-	public ArrayList getStudents() 
-	{
-		return AllStudents;
+
+	public List<Student> allStudents = new ArrayList<Student>();
+
+	public List<Student> getStudents() {
+		return allStudents;
 	}
-	
-	public Student getOneStudent(int index) 
-	{
-		return AllStudents.get(index);
+
+	public Student getOneStudent(int index) {
+		return allStudents.get(index);
 	}
-	
-	public void setStudent(Student student) 
-	{
-		AllStudents.add(student);
+
+	public void addStudent(Student student) {
+		allStudents.add(student);
 	}
-	
-	public void deleteStudent(Student student)
-	{
-		AllStudents.remove(student);
+
+	public void deleteStudent(Student student) {
+		allStudents.remove(student);
 	}
 }

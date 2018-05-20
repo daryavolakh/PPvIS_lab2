@@ -1,35 +1,26 @@
 package controller;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
-import model.*;
-import view.*;
+import model.Student;
+import model.StudentDataBase;
 
 public class Controller {
 	public StudentDataBase stdb = new StudentDataBase();
-	
-	public ArrayList getStudents() 
-	{
+
+	public List<Student> getStudents() {
 		return stdb.getStudents();
 	}
-	
-	public Student getOneStudent(int index) 
-	{
+
+	public Student getOneStudent(int index) {
 		return stdb.getOneStudent(index);
 	}
-	
-	public void setStudent(Student student)    
-	{
-		stdb.setStudent(student);
+
+	public void addStudent(Student student) {
+		stdb.addStudent(student);
 	}
-	
-	public void deleteStudent(Student student)
-	{
+
+	public void deleteStudent(Student student) {
 		stdb.deleteStudent(student);
 	}
 }
