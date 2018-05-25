@@ -238,16 +238,12 @@ public class MainWindow {
 
 	}
 
-	public void update() {
-		mainPanel.remove(table);
-		frame.remove(mainPanel);
-		JPanel newPanel = new JPanel();
-		TableComponent newTable = new TableComponent(controller, controller.getStudents());
-		newPanel.add(newTable);
+	public void update() {		
+		mainPanel.removeAll();
+		TableComponent table = new TableComponent(controller, controller.getStudents());
 		
-		newPanel.setBounds(40, 90, 600, 800);
-		frame.add(newPanel);
-		newTable.update(controller.getStudents());
+		mainPanel.add(table);	
+		table.update(controller.getStudents());
 	}
 
 	public void show() {

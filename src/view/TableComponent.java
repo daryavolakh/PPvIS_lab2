@@ -197,6 +197,7 @@ public class TableComponent extends JPanel {
 	}
 
 	public void update(List<Student> students) {
+		//int num = 4;
 		this.students = students;
 		clearTable();
 		tempPages = num;
